@@ -15,11 +15,11 @@ impl Watcher for NullWatcher {
         Ok(NullWatcher)
     }
 
-    fn watch(&mut self, path: impl AsRef<Path>, recursive_mode: RecursiveMode) -> Result<()> {
+    fn watch(&mut self, path: &Path, recursive_mode: RecursiveMode) -> Result<()> {
         Ok(())
     }
 
-    fn unwatch(&mut self, path: impl AsRef<Path>) -> Result<()> {
+    fn unwatch(&mut self, path: &Path) -> Result<()> {
         Ok(())
     }
 }

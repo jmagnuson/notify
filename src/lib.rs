@@ -21,6 +21,7 @@
 //!
 //! ```
 //! use notify::{Watcher, RecommendedWatcher, RecursiveMode, Result};
+//! use std::path::Path;
 //!
 //! fn main() -> Result<()> {
 //!     // Automatically select the best implementation for your platform.
@@ -33,7 +34,7 @@
 //!
 //!     // Add a path to be watched. All files and directories at that path and
 //!     // below will be monitored for changes.
-//!     watcher.watch(".", RecursiveMode::Recursive)?;
+//!     watcher.watch(&Path::new("."), RecursiveMode::Recursive)?;
 //!
 //!     Ok(())
 //! }
@@ -48,6 +49,7 @@
 //!
 //! ```
 //! # use notify::{Watcher, RecommendedWatcher, RecursiveMode, Result};
+//! # use std::path::Path;
 //! # use std::time::Duration;
 //! # fn main() -> Result<()> {
 //! # // Automatically select the best implementation for your platform.
@@ -60,7 +62,7 @@
 //!
 //! # // Add a path to be watched. All files and directories at that path and
 //! # // below will be monitored for changes.
-//! # watcher.watch(".", RecursiveMode::Recursive)?;
+//! # watcher.watch(&Path::new("."), RecursiveMode::Recursive)?;
 //!
 //! use notify::Config;
 //! watcher.configure(Config::PreciseEvents(true))?;
@@ -77,7 +79,8 @@
 //!
 //! ```
 //! # use notify::{RecommendedWatcher, RecursiveMode, Result, Watcher};
-//! #
+//! # use std::path::Path;
+//!
 //! # fn main() -> Result<()> {
 //!       fn event_fn(res: Result<notify::Event>) {
 //!           match res {
@@ -88,8 +91,8 @@
 //!
 //!       let mut watcher1: RecommendedWatcher = Watcher::new_immediate(event_fn)?;
 //!       let mut watcher2: RecommendedWatcher = Watcher::new_immediate(event_fn)?;
-//! #     watcher1.watch(".", RecursiveMode::Recursive)?;
-//! #     watcher2.watch(".", RecursiveMode::Recursive)?;
+//! #     watcher1.watch(&Path::new("."), RecursiveMode::Recursive)?;
+//! #     watcher2.watch(&Path::new("."), RecursiveMode::Recursive)?;
 //! #
 //! #     Ok(())
 //! # }
@@ -162,7 +165,7 @@ pub trait Watcher {
     ///
     /// [#165]: https://github.com/notify-rs/notify/issues/165
     /// [#166]: https://github.com/notify-rs/notify/issues/166
-    fn watch(&mut self, path: impl AsRef<Path>, recursive_mode: RecursiveMode) -> Result<()>;
+    fn watch(&mut self, path: &Path, recursive_mode: RecursiveMode) -> Result<()>;
 
     /// Stop watching a path.
     ///
@@ -170,7 +173,7 @@ pub trait Watcher {
     ///
     /// Returns an error in the case that `path` has not been watched or if removing the watch
     /// fails.
-    fn unwatch(&mut self, path: impl AsRef<Path>) -> Result<()>;
+    fn unwatch(&mut self, path: &Path) -> Result<()>;
 
     /// Configure the watcher at runtime.
     ///
