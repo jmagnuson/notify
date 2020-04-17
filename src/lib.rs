@@ -162,7 +162,7 @@ pub trait Watcher {
     ///
     /// [#165]: https://github.com/notify-rs/notify/issues/165
     /// [#166]: https://github.com/notify-rs/notify/issues/166
-    fn watch<P: AsRef<Path>>(&mut self, path: P, recursive_mode: RecursiveMode) -> Result<()>;
+    fn watch(&mut self, path: impl AsRef<Path>, recursive_mode: RecursiveMode) -> Result<()>;
 
     /// Stop watching a path.
     ///
@@ -170,7 +170,7 @@ pub trait Watcher {
     ///
     /// Returns an error in the case that `path` has not been watched or if removing the watch
     /// fails.
-    fn unwatch<P: AsRef<Path>>(&mut self, path: P) -> Result<()>;
+    fn unwatch(&mut self, path: impl AsRef<Path>) -> Result<()>;
 
     /// Configure the watcher at runtime.
     ///
