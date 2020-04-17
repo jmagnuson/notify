@@ -138,13 +138,14 @@ impl<F> EventFn for F where F: 'static + Fn(Result<Event>) + Send {}
 /// Watcher is implemented per platform using the best implementation available on that platform.
 /// In addition to such event driven implementations, a polling implementation is also provided
 /// that should work on any platform.
-pub trait Watcher: Sized {
+pub trait Watcher {
     /// Create a new watcher in _immediate_ mode.
     ///
     /// Events will be sent using the provided `tx` immediately after they occur.
     fn new_immediate<F>(event_fn: F) -> Result<Self>
     where
-        F: EventFn;
+        F: EventFn,
+        Self: Sized;
 
     /// Begin watching a new path.
     ///
