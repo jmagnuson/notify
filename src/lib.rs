@@ -105,7 +105,6 @@
 pub use config::{Config, RecursiveMode};
 pub use error::{Error, ErrorKind, Result};
 pub use event::{Event, EventKind};
-use std::convert::AsRef;
 use std::path::Path;
 
 #[cfg(target_os = "macos")]
