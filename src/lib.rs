@@ -201,12 +201,18 @@ pub type RecommendedWatcher = ReadDirectoryChangesWatcher;
 #[cfg(target_os = "freebsd")]
 pub type RecommendedWatcher = KqueueWatcher;
 /// The recommended `Watcher` implementation for the current platform
-#[cfg(not(any(
+#[cfg(any(not(any(
     target_os = "linux",
     target_os = "macos",
     target_os = "windows",
     target_os = "freebsd"
-)))]
+))), all(
+target_os = "macos",
+not(any(
+    feature = "macos_fsevent",
+    feature = "macos_kqueue"
+))
+))]
 pub type RecommendedWatcher = PollWatcher;
 
 /// Convenience method for creating the `RecommendedWatcher` for the current platform in
