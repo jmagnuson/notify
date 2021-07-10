@@ -116,7 +116,7 @@ pub use poll::PollWatcher;
 #[cfg(target_os = "windows")]
 pub use windows::ReadDirectoryChangesWatcher;
 
-#[cfg(target_os = "macos")]
+#[cfg(all(target_os = "macos", feature = "macos_fsevent"))]
 pub mod fsevent;
 #[cfg(target_os = "linux")]
 pub mod inotify;
