@@ -192,7 +192,7 @@ pub trait Watcher {
 #[cfg(target_os = "linux")]
 pub type RecommendedWatcher = INotifyWatcher;
 /// The recommended `Watcher` implementation for the current platform
-#[cfg(target_os = "macos")]
+#[cfg(all(target_os = "macos", feature = "macos_fsevent"))]
 pub type RecommendedWatcher = FsEventWatcher;
 /// The recommended `Watcher` implementation for the current platform
 #[cfg(target_os = "windows")]
