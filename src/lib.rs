@@ -206,13 +206,13 @@ pub type RecommendedWatcher = KqueueWatcher;
     target_os = "macos",
     target_os = "windows",
     target_os = "freebsd"
-))), all(
+)), all(
 target_os = "macos",
 not(any(
     feature = "macos_fsevent",
     feature = "macos_kqueue"
 ))
-))]
+)))]
 pub type RecommendedWatcher = PollWatcher;
 
 /// Convenience method for creating the `RecommendedWatcher` for the current platform in
