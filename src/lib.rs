@@ -210,7 +210,6 @@ pub type RecommendedWatcher = KqueueWatcher;
 target_os = "macos",
 not(any(
     feature = "macos_fsevent",
-    feature = "macos_kqueue"
 ))
 )))]
 pub type RecommendedWatcher = PollWatcher;
